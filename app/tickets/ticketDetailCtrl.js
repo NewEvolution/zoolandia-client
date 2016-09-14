@@ -12,32 +12,24 @@ angular.module("Zoolandia")
       $scope.animal = null;
       $scope.habitat = null;
 
-      /*
-        1. Get root API document
-        2. Get animal information
-        3. Get habitat information
-       */
-
-      let logError = (err) => console.error("error", err);
-
       RootFactory.getApiRoot()
         .then(
           root => $http.get(root.tickets + $routeParams.ticketId),
-          logError
+          console.error
         )
         .then(
           res => {
             $scope.ticket = res.data;
             return $http.get($scope.ticket.habitat);
           },
-          logError
+          console.error
         )
         .then(
           res => {
             $scope.habitat = res.data;
             $timeout();
           },
-          logError
+          console.error
         )
     }
   ]);
